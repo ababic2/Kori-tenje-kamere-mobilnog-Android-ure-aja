@@ -25,8 +25,8 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imageView;
     private Bitmap bitmap;
 
-    private VideoView mVideoView;
-    private Uri mVideoUri;
+    private VideoView videoView;
+    private Uri videoURI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,5 +106,12 @@ public class MainActivity extends AppCompatActivity {
         bitmap = (Bitmap) extras.get("data");
         imageView.setImageBitmap(bitmap);
         imageView.setVisibility(View.VISIBLE);
+    }
+    private void handleCameraVideo(Intent intent) {
+        videoURI = intent.getData();
+        videoView.setVideoURI(videoURI);
+        bitmap = null;
+        videoView.setVisibility(View.VISIBLE);
+        imageView.setVisibility(View.INVISIBLE);
     }
 }
