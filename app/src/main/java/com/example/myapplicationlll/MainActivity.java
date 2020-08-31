@@ -78,6 +78,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             };
 
+    private void dispatchTakeVideoIntent() {
+        Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        startActivityForResult(takeVideoIntent, ACTION_TAKE_VIDEO);
+    }
+
 
     private void dispatchTakePictureIntent(int actionCode) {
         Intent takeImageIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
