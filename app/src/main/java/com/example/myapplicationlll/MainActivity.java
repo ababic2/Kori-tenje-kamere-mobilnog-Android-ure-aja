@@ -7,24 +7,32 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.VideoView;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private static final int ACTION_TAKE_PHOTO = 2;
+    private static final int ACTION_TAKE_PHOTO = 1;
+    private static final int ACTION_TAKE_VIDEO = 2;
+
 
     private ImageView imageView;
     private Bitmap bitmap;
+
+    private VideoView mVideoView;
+    private Uri mVideoUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
         imageView = (ImageView) findViewById(R.id.imageView1);
         bitmap = null;
         Button picSBtn = (Button) findViewById(R.id.btnIntendS);
@@ -62,11 +70,20 @@ public class MainActivity extends AppCompatActivity {
                     dispatchTakePictureIntent(ACTION_TAKE_PHOTO);
                 }
             };
+    Button.OnClickListener mTakeVidOnClickListener =
+            new Button.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dispatchTakeVideoIntent();
+                }
+            };
+
 
     private void dispatchTakePictureIntent(int actionCode) {
         Intent takeImageIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(takeImageIntent, ACTION_TAKE_PHOTO);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
